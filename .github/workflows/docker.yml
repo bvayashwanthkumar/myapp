@@ -31,3 +31,12 @@ jobs:
       - run: docker tag myapp4 ghcr.io/${{ github.repository_owner }}/myapp4:latest
 
       - run: docker push ghcr.io/${{ github.repository_owner }}/myapp4:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Server
+        run: |
+          echo "Deployment logic goes here"
