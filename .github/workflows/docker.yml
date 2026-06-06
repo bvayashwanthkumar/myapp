@@ -27,3 +27,17 @@ jobs:
       - run: docker tag myapp4 ${{ secrets.DOCKER_USERNAME }}/myapp4:latest
 
       - run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp4:latest
+
+  deploy:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Server
+        run: |
+          ssh user@SERVER_IP"
+          docker pull ${{ secrets.DOCKER_USERNAME }}/myapp4:latest &&
+          docker stop myapp4 || true &&
+          docker rm myapp4 || true &&
+          docker run -d --name myapp4 -p 8080:8080 ${{ secrets.DOCKER_USERNAME }}/myapp4:latest"
