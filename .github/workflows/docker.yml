@@ -1,0 +1,29 @@
+name: Java CI
+
+on:
+  push:
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+        
+       -uses: actions/checkout@v4
+      
+       -name: Login
+        run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}"  --password-stdin
+
+       -uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+
+        -run: mvn package
+
+        -run: docker build -t myapp4 .
+
+        -run: docker tag myapp4 ${{ secrets.DOCKER_USERNAME }}/myapp4:latest
+
+        -run: docker push ${{ secrets.DOCKER_USERNAME }}/myapp4:latest
