@@ -19,7 +19,7 @@ pipeline{
           }
     }
 
-   stage('Push') {
+   /*stage('Push') { 
     steps {
         withCredentials([
             usernamePassword(
@@ -28,11 +28,17 @@ pipeline{
                 passwordVariable: 'DOCKER_PASS'
             )
         ]) {
-            bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+           bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
             bat 'docker tag myapp %DOCKER_USER%/myapp:v1'
             bat 'docker push %DOCKER_USER%/myapp:v1'
         }
     }
-}
+}*/
+    stage('Push'){
+      steps{
+        bat 'docker tag myapp ghcr.io/bvayashwanthkumar/myapp:v1'
+        bat 'docker push ghcr.io/bvayashwanthkumar/myapp:v1'
+      }
+    }
   }
 }
