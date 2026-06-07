@@ -22,18 +22,10 @@ pipeline{
     stage('Push'){
       
       steps{
-
-        withCredentials([
-          usernamePassword(
-            credentialsId: 'dockerhub',
-            usernameVariable: 'DOCKER_USER',
-            passwordVariable: 'DOCKER_PASS'
-            )
-          ]) {
           bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%' 
           bat 'docker tag myapp yashwanthkumarbva/myapp:v1'
           bat 'docker push yashwanthkumarbva/myapp:v1'
-      }
+      
       }
     }
   }
