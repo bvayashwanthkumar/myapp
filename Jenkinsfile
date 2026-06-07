@@ -18,5 +18,12 @@ pipeline{
             bat 'docker run myapp'
           }
     }
+
+    stage('Push'){
+      steps{
+        bat 'docker tag myapp yashwanthkumarbva/myapp:v1'
+        bat 'docker push yashwanthkumarbva/myapp:v1'
+      }
+    }
   }
 }
