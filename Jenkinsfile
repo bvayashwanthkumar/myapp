@@ -36,8 +36,17 @@ pipeline{
 }*/
     stage('Push'){
       steps{
-        bat 'docker tag myapp ghcr.io/bvayashwanthkumar/myapp:v1'
-        bat 'docker push ghcr.io/bvayashwanthkumar/myapp:v1'
+        withCredentials([
+            usernamePassword(
+                credentialsId: 'ghcr',
+                usernameVariable: 'GH_USER',
+                passwordVariable: 'GH_PASS'
+            )
+        ]){
+          bat 'docker login ghcr.io -u %GH_USER% -p %GH_TOKEN%'
+          bat 'docker tag myapp ghcr.io/%GH_USER/myapp:v1'
+          bat 'docker push ghcr.io/%GH_USER%/myapp:v1'
+      }
       }
     }
   }
