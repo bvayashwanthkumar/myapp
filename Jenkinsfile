@@ -22,7 +22,7 @@ pipeline{
     stage('Push'){
       
       steps{
-          bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%' 
+          
           bat 'docker tag myapp yashwanthkumarbva/myapp:v1'
           bat 'docker push yashwanthkumarbva/myapp:v1'
       
