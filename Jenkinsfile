@@ -40,7 +40,7 @@ pipeline{
             usernamePassword(
                 credentialsId: 'ghcr',
                 usernameVariable: 'GH_USER',
-                passwordVariable: 'GH_PASS'
+                passwordVariable: 'GH_TOKEN'
             )
         ]){
           bat 'docker login ghcr.io -u %GH_USER% -p %GH_TOKEN%'
